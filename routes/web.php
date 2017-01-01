@@ -20,7 +20,9 @@ Route::get('/home', 'HomeController@index');
 /*
   admin route
 */
-
+Route::group(['middleware' => ['web','admin']] , function(){
+     Route::get('adminpanel','AdminController@index');
+});
 
 
 /*
