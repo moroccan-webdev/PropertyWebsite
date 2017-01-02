@@ -25,34 +25,35 @@
   <div class="container"> <a class="navbar-brand" href="{{ url('/') }}"><i class="fa fa-paper-plane"></i> ONE</a>
     <div class="menu"> <a class="toggleMenu" href="#"><img src="{{ Request::root() }}website/images/nav_icon.png" alt="" /> </a>
       <ul class="nav" id="nav">
-        <li class="current"><a href="{{ url('/home') }}">Home</a></li>
+        <li class="current"><a href="{{ url('/') }}">Home</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="services.html">Services</a></li>
         <li><a href="contact.html">Contact Us</a></li>
+
         @if (Auth::guest())
                   <li><a href="{{ url('/login') }}">Login</a></li>
                   <li><a href="{{ url('/register') }}">Register</a></li>
               @else
                   <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      <a  class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           {{ Auth::user()->name }} <span class="caret"></span>
                       </a>
 
-                      <ul class="dropdown-menu" role="menu">
+                      <ul class="dropdown-menu">
                           <li>
                               <a href="{{ url('/logout') }}"
                                   onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
                                   Logout
                               </a>
-
                               <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                   {{ csrf_field() }}
                               </form>
                           </li>
                       </ul>
                   </li>
-              @endif
+        @endif
+
         <div class="clear"></div>
       </ul>
     </div>

@@ -21,7 +21,9 @@ Route::get('/home', 'HomeController@index');
   admin route
 */
 Route::group(['middleware' => ['web','admin']] , function(){
-     Route::get('adminpanel','AdminController@index');
+     Route::get('/adminpanel','AdminController@index');
+     Route::resource('/adminpanel/user','UserController');
+     Route::post('adminpanel/user/changePassword/','UserController@UpdatePassword');
 });
 
 
