@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Session;
+use Datatables;
 use App\Http\Requests\AddUserRequestAdmin;
 
 class UserController extends Controller
 {
     public function index()
     {
-      $users = User::all();
-      return view('admin.users.index',compact('users'));
+      return view('admin.users.index');
     }
 
     public function create()
@@ -99,6 +99,25 @@ class UserController extends Controller
 
     //redirect to the index page
     return back();
+  }
+
+  public function anyData()
+  {
+    $users = User::all();
+    return Datatables::of($users)
+      ->editColumn('name', function ($model){
+        return '<a href="'.url('/adminpanel/user/'.$model->id .'/edit').'">'.$model->name.'</a>';
+      })
+      ->editColumn('admin', function ($model){
+        return $model->admin == 1 ?  '<span class = "badge badge-info">'.'Admin'.'</span>' : '<span class = "badge badge-warning">'.'guest'.'</span>';
+      })
+      ->editColumn('control', function ($model){
+        $all = '<a href="'.url('/adminpanel/user/'.$model->id .'/edit').'" class = "btn btn-info btn-circle"><i class ="fa fa-edit"></i></a>';
+        return $all;
+
+      })
+      ->make(true);
+
   }
 
 }
