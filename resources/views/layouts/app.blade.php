@@ -7,16 +7,17 @@
       {!!Html::style('website/css/flexslider.css')!!}
       {!!Html::style('website/css/style.css')!!}
       {!!Html::style('website/css/font-awesome.min.css')!!}
-      {!!Html::script('js/jquery.min.js')!!}
+      {!!Html::script('website/js/jquery.min.js')!!}
+
       <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
       <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900' rel='stylesheet' type='text/css'>
 
       <title>
-          Web Property
+          {{getSetting()}}
           |
           @yield('title')
       </title>
-
+      {!! Html::style('cus/css/select2.css') !!}
           @yield('header')
 
 </head>
@@ -26,6 +27,7 @@
     <div class="menu"> <a class="toggleMenu" href="#"><img src="{{ Request::root() }}website/images/nav_icon.png" alt="" /> </a>
       <ul class="nav" id="nav">
         <li class="current"><a href="{{ url('/') }}">Home</a></li>
+        <li class="current"><a href="{{ url('/showAllBuilding') }}">Estates</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="services.html">Services</a></li>
         <li><a href="contact.html">Contact Us</a></li>
@@ -66,16 +68,25 @@
 
     <div class="footer">
       <div class="footer_bottom">
-        <div class="follow-us"> <a class="fa fa-facebook social-icon" href="#"></a> <a class="fa fa-twitter social-icon" href="#"></a> <a class="fa fa-linkedin social-icon" href="#"></a> <a class="fa fa-google-plus social-icon" href="#"></a> </div>
+        <div class="follow-us">
+          <a class="fa fa-facebook social-icon" href="{{getSetting('Facebook')}}"></a>
+          <a class="fa fa-twitter social-icon" href="{{getSetting('Twitter')}}"></a>
+          <a class="fa fa-linkedin social-icon" href="{{getSetting('Youtube')}}"></a>
+          <a class="fa fa-google-plus social-icon" href="{{getSetting('Facebook')}}"></a>
+        </div>
         <div class="copy">
           <p>Copyright &copy; 2015 Company Name. Design by <a href="http://www.templategarden.com" rel="nofollow">TemplateGarden</a></p>
         </div>
       </div>
     </div>
 
-    {!! Html::script('website/js/js/responsive-nav.js') !!}
+    {!! Html::script('website/js/responsive-nav.js') !!}
     {!! Html::script('website/js/bootstrap.min.js') !!}
     {!! Html::script('website/js/jquery.flexslider.js') !!}
+    {!! Html::script('cus/js/select2.js') !!}
+    <script type="text/javascript">
+      $('.select2').select2();
+    </script>
 
     @yield('footer')
 

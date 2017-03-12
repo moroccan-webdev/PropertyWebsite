@@ -29,6 +29,8 @@
   {!! Html::style('admin/plugins/daterangepicker/daterangepicker.css') !!}
   <!-- bootstrap wysihtml5 - text editor -->
   {!! Html::style('admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') !!}
+  <!-- Sweet Alert -->
+  {!! Html::style('cus/sweetalert.css') !!}
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -337,6 +339,7 @@
     </aside>
 
 <div class="content-wrapper">
+    @include('admin.layouts.message')
     @yield('content')
 </div>
 
@@ -581,6 +584,11 @@
   {!! Html::script('admin/dist/js/pages/dashboard.js') !!}
   <!-- AdminLTE for demo purposes -->
   {!! Html::script('admin/dist/js/demo.js') !!}
+  <!-- Sweet Alert -->
+  {!! Html::script('cus/sweetalert.min.js') !!}
+
+  @include('admin.layouts.f_message')
+
   @yield('footer')
   </body>
   </html>

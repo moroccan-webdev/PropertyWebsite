@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\AddUserRequestAdmin;
 use Illuminate\Http\Request;
+use Datatables;
 use App\User;
 use Session;
-use Datatables;
-use App\Http\Requests\AddUserRequestAdmin;
+use App\Bu;
+
+
 
 class UserController extends Controller
 {
@@ -85,34 +87,33 @@ class UserController extends Controller
     }
   /*  */
 
-  public function destroy($id)
+  public function destroy($id, User $user)
   {
-    //find the user which will be deleted
-    $user = User::find($id);;
-
-    //detete the item
-    $user->delete();
-
-    //create a session flash
+    if($id !=1){
+    $user = User::find($id)->delete();
+    Bu::where('user_id',$id)->delete();
     Session::flash('success','This client was successfully deleted !');
-
-
-    //redirect to the index page
     return back();
+    }
+    return redirect('/adminpanel/user')->withFlashMessage('unable to delete the administrator or root user');
   }
 
   public function anyData()
   {
+
     $users = User::all();
     return Datatables::of($users)
       ->editColumn('name', function ($model){
         return '<a href="'.url('/adminpanel/user/'.$model->id .'/edit').'">'.$model->name.'</a>';
       })
       ->editColumn('admin', function ($model){
-        return $model->admin == 1 ?  '<span class = "badge badge-info">'.'Admin'.'</span>' : '<span class = "badge badge-warning">'.'guest'.'</span>';
+        return $model->admin == 0 ?  '<span class = "badge badge-info">'.'guest'.'</span>' : '<span class = "badge badge-warning">'.'admin'.'</span>';
       })
       ->editColumn('control', function ($model){
         $all = '<a href="'.url('/adminpanel/user/'.$model->id .'/edit').'" class = "btn btn-info btn-circle"><i class ="fa fa-edit"></i></a>';
+        if($model->id !=1){
+          $all .= '<a href="'.url('/adminpanel/user/'.$model->id .'/delete').'" class = "btn btn-danger btn-circle"><i class ="fa fa-trash-o"></i></a>';
+        }
         return $all;
 
       })

@@ -1,7 +1,7 @@
 @extends('admin.layouts.layout')
 
 @section('title')
-  Manage Users
+  Manage Estates
 @endsection
 
 @section('header')
@@ -11,12 +11,12 @@
 @section('content')
 <section class="content-header">
   <h1>
-    Manage users
-    <small>Users Table</small>
+    Manage Estates
+    <small>Estates Table</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="{{ url('/adminpanel') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active"><a href="{{ url('/adminpanel/users') }}">Manage Users</a></li>
+    <li class="active"><a href="{{ url('/adminpanel/bu') }}">Manage Estates</a></li>
   </ol>
 </section>
 
@@ -26,7 +26,7 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Users Table</h3>
+            <h3 class="box-title">Estates Table</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -34,10 +34,11 @@
             <thead>
             <tr>
               <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
+              <th>Name Estate</th>
+              <th>Price</th>
+              <th>Type</th>
               <th>Creation date</th>
-              <th>Priveleges</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
             </thead>
@@ -45,10 +46,11 @@
             <tfoot>
               <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
+                <th>Name Estate</th>
+                <th>Price</th>
+                <th>Type</th>
                 <th>Creation date</th>
-                <th>Priveleges</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </tfoot>
@@ -71,26 +73,39 @@
 
       var lastIdx = null;
       $('#data thead th').each( function () {
-      if($(this).index()  < 4 ){
+      if($(this).index()  < 5 && $(this).index() != 3 ){
           var classname = $(this).index() == 6  ?  'date' : 'dateslash';
           var title = $(this).html();
           $(this).html( '<input type="text" class="' + classname + '" data-value="'+ $(this).index() +'" placeholder=" '+title+'" />' );
-      }else if($(this).index() == 4){
-          $(this).html( '<select><option value="0"> Guest </option><option value="1"> Admin </option></select>' );
+      /*}else if($(this).index() == 3){
+          $(this).html('<select>'+
+            @foreach(bu_type() as $key => $bu)
+              '<option value="{{$key}}"> {{ $bu }} </option>'+
+            @endforeach
+          '</select>');
+      }// did not work !! the name of the function and all are ok*/ 
+    }else if($(this).index() == 5){
+          $(this).html('<select>'+
+            @foreach(bu_status() as $key => $bu)
+              '<option value="{{$key}}"> {{ $bu }} </option>'+
+            @endforeach
+          '</select>');
       }
+
 
   } );
 
   var table = $('#data').DataTable({
       processing: true,
       serverSide: true,
-      ajax: '{{ url('/adminpanel/user/data') }}',
+      ajax: '{{ url('/adminpanel/bu/data') }}',
       columns: [
           {data: 'id', name: 'id'},
-          {data: 'name', name: 'name'},
-          {data: 'email', name: 'email'},
+          {data: 'bu_name', name: 'bu_name'},
+          {data: 'bu_price', name: 'bu_price'},
+          {data: 'bu_type', name: 'bu_type'},
           {data: 'created_at', name: 'created_at'},
-          {data: 'admin', name: 'admin'},
+          {data: 'bu_status', name: 'bu_status'},
           {data: 'control', name: ''}
       ],
       "language": {
