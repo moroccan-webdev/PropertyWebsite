@@ -28,8 +28,29 @@
       <ul class="nav" id="nav">
         <li class="current"><a href="{{ url('/') }}">Home</a></li>
         <li class="current"><a href="{{ url('/showAllBuilding') }}">Estates</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="services.html">Services</a></li>
+
+        <li class="dropdown">
+            <a  class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Rent <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              @foreach(bu_type() as $keyType => $type)
+                <li><a href="{{ url('/search?bu_rent=0&bu_type='.$keyType) }}">{{ $type }}</a></li>
+              @endforeach
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a  class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sell <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              @foreach(bu_type() as $keyType => $type)
+                <li><a href="{{ url('/search?bu_rent=1&bu_type='.$keyType) }}">{{ $type }}</a></li>
+              @endforeach
+            </ul>
+        </li>
+
         <li><a href="contact.html">Contact Us</a></li>
 
         @if (Auth::guest())
@@ -40,17 +61,10 @@
                       <a  class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           {{ Auth::user()->name }} <span class="caret"></span>
                       </a>
-
                       <ul class="dropdown-menu">
                           <li>
-                              <a href="{{ url('/logout') }}"
-                                  onclick="event.preventDefault();
-                                           document.getElementById('logout-form').submit();">
-                                  Logout
-                              </a>
-                              <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                  {{ csrf_field() }}
-                              </form>
+                              <a href="{{ url('/logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                              <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                           </li>
                       </ul>
                   </li>

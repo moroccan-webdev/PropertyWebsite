@@ -76,7 +76,7 @@
            {!! Form::submit("Search", ['class' => 'banner_btn']) !!}
         </li>
       </ul>
-  {!! Form::close() !!}
+      {!! Form::close() !!}
     </div>
     <!-- END MENU -->
   </div>

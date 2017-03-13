@@ -93,7 +93,7 @@ class BuController extends Controller
 
     public function showAllEnable(Bu $bu)
     {
-      $buAll = Bu::where('bu_status', 1)->orderBy('id', 'desc')->paginate(6);
+      $buAll = Bu::where('bu_status', 1)->orderBy('id', 'desc')->paginate(2);
       return view('website.bu.all',compact('buAll'));
     }
 

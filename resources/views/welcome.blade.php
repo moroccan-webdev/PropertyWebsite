@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Welcome To Property Website
+  Property Website {{getSetting()}}
 @endsection
 
 @section('header')
@@ -12,10 +12,47 @@
 <div class="banner text-center">
   <div class="container">
     <div class="banner-info">
-      <h1>Lorem ipsum dolor sit amet</h1>
-      <p>Lorem ipsum dolor sit amet, facilisis egestas sodales non luctus,<br>
-        sem quas potenti malesuada vel phasellus.</p>
-      <a class="banner_btn" href="about.html">Read More</a> </div>
+      <h1>Welcome To  {{getSetting()}}</h1>
+
+
+      <p>
+        {!! Form::open(['url'=> 'search','method'=>'get']) !!}
+          <div class="row">
+          <div class="col-md-3">
+            {!! Form::text("bu_price_from", null, ['class' => 'form-control', 'placeholder' => 'Price From']) !!}
+          </div>
+          <div class="col-md-3">
+            {!! Form::text("bu_price_to", null, ['class' => 'form-control', 'placeholder' => 'Price To']) !!}
+          </div>
+          <div class="col-md-3">
+            {!! Form::select("bu_place", bu_place(), null, ['class' => 'select2 form-control', 'placeholder' => 'Place']) !!}
+          </div>
+          <div class="col-md-3">
+            {!! Form::select("rooms", roomnumber(), null, ['class' => 'form-control', 'placeholder' => 'Rooms']) !!}
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-3">
+              {!! Form::select("bu_type", bu_type(), null, ['class' => 'form-control', 'placeholder' => 'Estate type']) !!}
+            </div>
+            <div class="col-md-3">
+              {!! Form::select("bu_rent", bu_rent(), null, ['class' => 'form-control', 'placeholder' => 'Rent Or Sell']) !!}
+            </div>
+            <div class="col-md-3">
+              {!! Form::text("bu_square", null, ['class' => 'form-control', 'placeholder' => 'Surface']) !!}
+            </div>
+            <div class="col-md-3">
+              {!! Form::submit("Search", ['class' => 'btn', 'style' => 'width:100%']) !!}
+            </div>
+          </div>
+
+
+        {!! Form::close() !!}
+    </p>
+
+
+      <a class="banner_btn" href="{{url('/showAllBuilding')}}">More Estates</a> </div>
   </div>
 </div>
 <div class="main">
