@@ -151,4 +151,12 @@ class BuController extends Controller
         return view('website.bu.all',compact('buAll', 'array'));
     }
 
+    public function ShowSingle($id, Bu $bu)
+    {
+      $buInfo = Bu::findOrFail($id);
+      $some_rent = Bu::where('bu_rent', $buInfo->bu_rent)->orderBy(DB::raw('RAND()'))->take(3)->get();
+      $some_type = Bu::where('bu_type', $buInfo->bu_rent)->orderBy(DB::raw('RAND()'))->take(3)->get();
+      return view('website.bu.buinfo',compact('buInfo', 'some_rent', 'some_type'));
+    }
+
 }

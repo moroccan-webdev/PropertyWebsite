@@ -9,7 +9,7 @@
                 <img src="http://keenthemes.com/assets/bootsnipp/k3.jpg" class="img-responsive" alt="Berry Lace Dress">
                 <div>
                   <a href="#" class="btn">Zoom</a>
-                  <a href="#" class="btn">View</a>
+                  <a href="{{ url('/SingleBuilding/'.$b->id) }}" class="btn">View</a>
                 </div>
               </div>
               <h3><a href="shop-item.html">{{$b->bu_name}}</a></h3>

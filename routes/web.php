@@ -10,18 +10,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::group(['middleware' => 'web'], function (){
-  Auth::routes();
-  Route::get('/', function () {
-      return view('welcome');
-  });
-  Route::get('/showAllBuilding', 'BuController@showAllEnable');
-  Route::get('/forRent', 'BuController@forRent');
-  Route::get('/forBuy', 'BuController@forBuy');
-  Route::get('/type/{tupe}', 'BuController@showByType');
-  Route::get('/home', 'HomeController@index');
-  Route::get('/search', 'BuController@search');
-});
+
 
 
 /*
@@ -45,4 +34,18 @@ Route::group(['middleware' => ['web','admin']] , function(){
      //setting site_settings
      Route::get('/adminpanel/sitesetting','SiteSettingController@index');
      Route::post('/adminpanel/sitesetting','SiteSettingController@store');
+});
+
+Route::group(['middleware' => 'web'], function (){
+  Auth::routes();
+  Route::get('/', function () {
+      return view('welcome');
+  });
+  Route::get('/SingleBuilding/{id}', 'BuController@ShowSingle');
+  Route::get('/showAllBuilding', 'BuController@showAllEnable');
+  Route::get('/forRent', 'BuController@forRent');
+  Route::get('/forBuy', 'BuController@forBuy');
+  Route::get('/type/{tupe}', 'BuController@showByType');
+  Route::get('/home', 'HomeController@index');
+  Route::get('/search', 'BuController@search');
 });
